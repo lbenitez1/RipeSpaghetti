@@ -11,27 +11,17 @@
     android:background="@drawable/spaghetti"
     tools:context="com.leonardobenitez.leonardobenitez.ripespaghetti.MainActivity">
 
-    <EditText
+    <Gallery
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="12"
-        android:textColor="#fff"
-        android:id="@+id/username"
-        android:layout_above="@+id/passWordLabel"
-        android:layout_alignLeft="@+id/userNameLabel"
-        android:layout_alignStart="@+id/userNameLabel" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:textColor="#fff"
-        android:ems="12"
-        android:id="@+id/password"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/passWordLabel"
-        android:layout_alignStart="@+id/passWordLabel" />
+        android:id="@+id/gallery"
+        android:background="#CC000000"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -40,9 +30,31 @@
         android:text="Username:"
         android:textStyle="bold"
         android:textColor="#fff"
-        android:layout_marginLeft="39dp"
-        android:layout_marginStart="39dp"
-        android:layout_above="@+id/username"
+        android:layout_marginTop="67dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:editable="false" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:textColor="#fff"
+        android:ems="12"
+        android:id="@+id/passwordField"
+        android:layout_below="@+id/passWordLabel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="12"
+        android:textColor="#fff"
+        android:id="@+id/usernameField"
+        android:layout_below="@+id/userNameLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -53,25 +65,42 @@
         android:text="Password:"
         android:textStyle="bold"
         android:textColor="#fff"
-        android:layout_above="@+id/password"
-        android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_below="@+id/usernameField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign In"
-        android:id="@+id/signInButton"
-        android:layout_below="@+id/password"
+        android:id="@+id/loginButton"
+        android:clickable="true"
+        android:layout_below="@+id/passwordField"
         android:layout_alignRight="@+id/passWordLabel"
-        android:layout_alignEnd="@+id/passWordLabel" />
+        android:onClick="loginButton" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/forgotPassWordLink"
+        android:text="Forgot Password?"
+        android:textColor="#fff"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="56dp"
+        android:onClick="forgotPassWordButton"
+        android:clickable="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign Up"
-        android:id="@+id/signUpButton"
-        android:layout_below="@+id/signInButton"
-        android:layout_alignRight="@+id/passWordLabel" />
+        android:id="@+id/singUpButton"
+        android:clickable="true"
+        android:onClick="signUpButton"
+        android:layout_below="@+id/loginButton"
+        android:layout_alignLeft="@+id/loginButton"
+        android:layout_alignStart="@+id/loginButton" />
 
 </RelativeLayout>

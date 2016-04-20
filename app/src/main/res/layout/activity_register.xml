@@ -24,7 +24,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/userNameLabel"
         android:layout_below="@+id/usernameView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -37,7 +37,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Cell Number"
         android:id="@+id/cellNumView"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/userNameLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/passWordLabel"
         android:layout_below="@+id/cellNumView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -61,7 +61,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Password"
         android:id="@+id/passwordView"
-        android:layout_below="@+id/editText2"
+        android:layout_below="@+id/passWordLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
