@@ -22,6 +22,5 @@ public class UserActivity extends AppCompatActivity {
         String message = name + " welcome to your user area";
         welcomeMessage.setText(message);
 
-
     }
 }

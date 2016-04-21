@@ -22,7 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("MyApp","I am here");
         }
     public void signUpButton(View v){
         //do something
@@ -43,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (success) {
                         Log.d("success", "True");
-                        String cell = jsonResponse.getString("colCell");
+                        String cell = jsonResponse.getString("cell");
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                         intent.putExtra("username", username);
                         intent.putExtra("cell", cell);
