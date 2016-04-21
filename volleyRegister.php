@@ -7,7 +7,7 @@ require_once('dbConnect.php');
         global $con, $username, $password, $cell;
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $statement = mysqli_prepare($con, "INSERT INTO users (username, password, cell) VALUES (?, ?, ?)");
-        mysqli_stmt_bind_param($statement, "sss", $username, $password, $cell);
+        mysqli_stmt_bind_param($statement, "sss", $username, $passwordHash, $cell);
         mysqli_stmt_execute($statement);
         mysqli_stmt_close($statement);     
     }

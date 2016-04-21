@@ -12,7 +12,8 @@ $response = array();
 $response["success"] = false;  
 
 while(mysqli_stmt_fetch($statement)){
-        if ($password == $colPassword) {
+		$verify = password_verify($password, $colPassword);
+        if ($verify) {
         $response["success"] = true; 
         $response["cell"] = $colCell; 
     }
