@@ -16,7 +16,7 @@ public class UserActivity extends AppCompatActivity {
         final TextView welcomeMessage = (TextView) findViewById(R.id.tvWelcomeMessage);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("user");
+        String name = intent.getStringExtra("username");
         String cell = intent.getStringExtra("cell");
 
         String message = name + " welcome to your user area";

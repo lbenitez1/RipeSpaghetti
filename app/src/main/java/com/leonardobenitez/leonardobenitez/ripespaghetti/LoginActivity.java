@@ -33,32 +33,37 @@ public class LoginActivity extends AppCompatActivity {
         //do something
         final String username = ((EditText)findViewById(R.id.usernameField)).getText().toString();
         final String password = ((EditText)findViewById(R.id.passwordField)).getText().toString();
-        Response.Listener<String> responseListner = new Response.Listener<String>() {
+        // Response received from the server
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
-                    if(success){
-                        String cell = jsonResponse.getString("cell");
-                        Intent login = new Intent(getApplicationContext(), UserActivity.class);
-                        login.putExtra("user", username);
-                        login.putExtra("cell", cell);
+
+                    if (success) {
+                        Log.d("success", "True");
+                        String cell = jsonResponse.getString("colCell");
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
-                        LoginActivity.this.startActivity(intent);                    }
-                    else{
+                        intent.putExtra("username", username);
+                        intent.putExtra("cell", cell);
+                        LoginActivity.this.startActivity(intent);
+                    } else {
+                        Log.d("no-success", "False");
                         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                         builder.setMessage("Login Failed")
                                 .setNegativeButton("Retry", null)
                                 .create()
                                 .show();
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         };
-        LoginRequest loginRequest = new LoginRequest(username, password, responseListner);
+
+        LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
         queue.add(loginRequest);
     }

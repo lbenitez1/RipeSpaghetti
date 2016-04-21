@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import com.android.volley.RequestQueue;
@@ -24,17 +25,16 @@ public class RegisterActivity extends AppCompatActivity {
         final String username = ((EditText)findViewById(R.id.userNameText)).getText().toString();
         final String cell = ((EditText)findViewById(R.id.cellText)).getText().toString();
         final String password = ((EditText)findViewById(R.id.passWordText)).getText().toString();
-        Response.Listener<String> response = new Response.Listener<String>(){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
-            public void onResponse(String response){
+            public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
-                    if(success){
+                    if (success) {
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         RegisterActivity.this.startActivity(intent);
-                    }
-                    else{
+                    } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                         builder.setMessage("Register Failed")
                                 .setNegativeButton("Retry", null)
@@ -45,9 +45,9 @@ public class RegisterActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
         };
-        RegisterRequest  registerRequest = new RegisterRequest(username, password, cell, response);
+
+        RegisterRequest registerRequest = new RegisterRequest(username, password, cell, responseListener);
         RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
         queue.add(registerRequest);
     }
