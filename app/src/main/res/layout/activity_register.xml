@@ -24,7 +24,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/userNameLabel"
+        android:id="@+id/userNameText"
         android:layout_below="@+id/usernameView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -37,7 +37,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Cell Number"
         android:id="@+id/cellNumView"
-        android:layout_below="@+id/userNameLabel"
+        android:layout_below="@+id/userNameText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:inputType="phone"
         android:ems="10"
-        android:id="@+id/passWordLabel"
+        android:id="@+id/cellNumberText"
         android:layout_below="@+id/cellNumView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -61,7 +61,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Password"
         android:id="@+id/passwordView"
-        android:layout_below="@+id/passWordLabel"
+        android:layout_below="@+id/cellNumberText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText3"
+        android:id="@+id/passWordText"
         android:layout_below="@+id/passwordView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -83,5 +83,6 @@
         android:text="Register"
         android:id="@+id/registerButton"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="registerUserButton" />
 </RelativeLayout>

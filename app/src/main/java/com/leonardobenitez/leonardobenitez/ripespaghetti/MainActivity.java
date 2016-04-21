@@ -23,10 +23,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void loginButton(View v){
         //do something
-        /*if(password == username) {
-            Intent login = new Intent(getApplicationContext(), UserActivity.class);
-            startActivity(login);
-        }*/
         username = ((EditText)findViewById(R.id.usernameField)).getText().toString();
         password = ((EditText)findViewById(R.id.passwordField)).getText().toString();
         if(password.equals(username)) {

@@ -26,7 +26,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/userNameLabel"
+        android:id="@+id/userNameText"
         android:text="Username:"
         android:textStyle="bold"
         android:textColor="#fff"
@@ -43,7 +43,7 @@
         android:textColor="#fff"
         android:ems="12"
         android:id="@+id/passwordField"
-        android:layout_below="@+id/passWordLabel"
+        android:layout_below="@+id/cellNumberText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -54,14 +54,14 @@
         android:ems="12"
         android:textColor="#fff"
         android:id="@+id/usernameField"
-        android:layout_below="@+id/userNameLabel"
+        android:layout_below="@+id/userNameText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/passWordLabel"
+        android:id="@+id/cellNumberText"
         android:text="Password:"
         android:textStyle="bold"
         android:textColor="#fff"
@@ -76,7 +76,7 @@
         android:id="@+id/loginButton"
         android:clickable="true"
         android:layout_below="@+id/passwordField"
-        android:layout_alignRight="@+id/passWordLabel"
+        android:layout_alignRight="@+id/cellNumberText"
         android:onClick="loginButton" />
 
     <EditText
