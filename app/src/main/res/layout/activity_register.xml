@@ -35,33 +35,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Cell Number"
-        android:id="@+id/cellNumView"
+        android:text="Password"
+        android:id="@+id/passwordView"
         android:layout_below="@+id/userNameText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true" />
 
-    <EditText
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/cellNumberText"
-        android:layout_below="@+id/cellNumView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:text="Register"
+        android:id="@+id/registerButton"
+        android:onClick="registerUserButton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Password"
-        android:id="@+id/passwordView"
-        android:layout_below="@+id/cellNumberText"
+        android:text="Cell Number"
+        android:id="@+id/cellView"
+        android:layout_below="@+id/passWordText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -74,15 +69,18 @@
         android:layout_below="@+id/passwordView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignRight="@+id/userNameText"
+        android:layout_alignEnd="@+id/userNameText" />
 
-    <Button
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register"
-        android:id="@+id/registerButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="registerUserButton" />
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/cellText"
+        android:layout_below="@+id/cellView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/passWordText"
+        android:layout_alignEnd="@+id/passWordText" />
 </RelativeLayout>

@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/spaghetti"
-    tools:context="com.leonardobenitez.leonardobenitez.ripespaghetti.MainActivity">
+    tools:context=".LoginActivity">
 
     <Gallery
         android:layout_width="wrap_content"
@@ -26,24 +26,11 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/userNameText"
-        android:text="Username:"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:layout_marginTop="67dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:editable="false" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:textColor="#fff"
         android:ems="12"
         android:id="@+id/passwordField"
-        android:layout_below="@+id/cellNumberText"
+        android:layout_below="@+id/passwordLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -54,18 +41,7 @@
         android:ems="12"
         android:textColor="#fff"
         android:id="@+id/usernameField"
-        android:layout_below="@+id/userNameText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cellNumberText"
-        android:text="Password:"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:layout_below="@+id/usernameField"
+        android:layout_below="@+id/usernameLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -75,9 +51,9 @@
         android:text="Sign In"
         android:id="@+id/loginButton"
         android:clickable="true"
+        android:onClick="loginButton"
         android:layout_below="@+id/passwordField"
-        android:layout_alignRight="@+id/cellNumberText"
-        android:onClick="loginButton" />
+        android:layout_alignParentLeft="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -85,12 +61,11 @@
         android:id="@+id/forgotPassWordLink"
         android:text="Forgot Password?"
         android:textColor="#fff"
-        android:layout_below="@+id/loginButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="56dp"
         android:onClick="forgotPassWordButton"
-        android:clickable="true" />
+        android:clickable="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/singUpButton"
+        android:layout_alignParentLeft="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -100,7 +75,29 @@
         android:clickable="true"
         android:onClick="signUpButton"
         android:layout_below="@+id/loginButton"
-        android:layout_alignLeft="@+id/loginButton"
-        android:layout_alignStart="@+id/loginButton" />
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username:"
+        android:id="@+id/usernameLabel"
+        android:layout_alignTop="@+id/gallery"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="58dp"
+        android:textColor="#fff"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:id="@+id/passwordLabel"
+        android:textColor="#fff"
+        android:textSize="20dp"
+        android:layout_below="@+id/usernameField"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

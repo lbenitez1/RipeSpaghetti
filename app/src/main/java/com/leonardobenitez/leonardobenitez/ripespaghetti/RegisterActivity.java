@@ -22,8 +22,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
     public void registerUserButton(View v) {
         final String username = ((EditText)findViewById(R.id.userNameText)).getText().toString();
-        final String cell = ((EditText)findViewById(R.id.passWordText)).getText().toString();
-        final String password = ((EditText)findViewById(R.id.cellNumberText)).getText().toString();
+        final String cell = ((EditText)findViewById(R.id.cellText)).getText().toString();
+        final String password = ((EditText)findViewById(R.id.passWordText)).getText().toString();
         Response.Listener<String> response = new Response.Listener<String>(){
             @Override
             public void onResponse(String response){
@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean success = jsonResponse.getBoolean("success");
                     if(success){
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         RegisterActivity.this.startActivity(intent);
                     }
                     else{
