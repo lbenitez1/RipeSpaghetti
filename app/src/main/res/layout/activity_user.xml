@@ -1,22 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     tools:context="com.leonardobenitez.leonardobenitez.ripespaghetti.UserActivity">
+
+    <ImageButton
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageButton3"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="100dp"
+        android:background="#CCB00125"
+        android:clickable="true"
+        android:onClick="uploadTopicButton" />
+
+    <ImageButton
+        android:layout_width="fill_parent"
+        android:layout_height="105dp"
+        android:id="@+id/imageButton2"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_alignStart="@+id/imageButton3"
+        android:background="#DDE8F0" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvWelcomeMessage"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/imageButton2"
+        android:layout_alignStart="@+id/imageButton2"
+        android:layout_marginTop="30dp"
+        android:layout_alignWithParentIfMissing="false"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:textSize="30dp"
+        android:textColor="#fff" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/imageButton4"
+        android:layout_below="@+id/imageButton2"
+        android:layout_toRightOf="@+id/imageButton3"
+        android:layout_alignRight="@+id/imageButton2"
+        android:layout_alignEnd="@+id/imageButton2"
+        android:background="#5AB1FF"
+        android:layout_above="@+id/imageButton5" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:id="@+id/imageButton5"
+        android:layout_toRightOf="@+id/imageButton3"
+        android:layout_alignBottom="@+id/imageButton3"
+        android:layout_alignRight="@+id/imageButton4"
+        android:layout_alignEnd="@+id/imageButton4"
+        android:background="#27B289" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:id="@+id/imageButton7"
+        android:layout_alignParentBottom="true"
+        android:background="#5ED7E2"
+        android:layout_alignStart="@+id/imageButton3"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/imageButton3"
+        android:layout_alignEnd="@+id/imageButton3" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvWelcomeMessage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="26dp" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="User Info"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/imageButton2"
+        android:layout_toRightOf="@+id/imageButton3"
+        android:layout_alignRight="@+id/imageButton2"
+        android:layout_alignEnd="@+id/imageButton2"
+        android:gravity="center_horizontal"
+        android:textColor="#fff"
+        android:layout_marginTop="35dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:id="@+id/imageButton6"
+        android:background="#FFB2B2"
+        android:layout_alignBottom="@+id/imageButton7"
+        android:layout_toRightOf="@+id/imageButton7"
+        android:layout_alignEnd="@+id/imageButton5" />
+
+    <SearchView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchView"
+        android:layout_below="@+id/imageButton5"
+        android:layout_alignLeft="@+id/imageButton3"
+        android:layout_alignStart="@+id/imageButton3"
+        android:layout_above="@+id/imageButton7"
+        android:layout_alignRight="@+id/imageButton6"
+        android:layout_alignEnd="@+id/imageButton6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SIGN OUT"
+        android:id="@+id/textView3"
+        android:gravity="center|center_horizontal"
+        android:textSize="30dp"
+        android:textColor="#fff"
+        android:layout_marginBottom="57dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/imageButton7"
+        android:layout_alignRight="@+id/imageButton6"
+        android:layout_alignEnd="@+id/imageButton6" />
+
 </RelativeLayout>
