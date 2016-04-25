@@ -8,56 +8,41 @@
     <ImageButton
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:id="@+id/imageButton3"
-        android:layout_alignParentTop="true"
+        android:id="@+id/aboutButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="100dp"
         android:background="#CCB00125"
         android:clickable="true"
-        android:onClick="uploadTopicButton" />
+        android:onClick="uploadTopicButton"
+        android:layout_below="@+id/userInfoButton" />
 
     <ImageButton
         android:layout_width="fill_parent"
         android:layout_height="105dp"
-        android:id="@+id/imageButton2"
+        android:id="@+id/userInfoButton"
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/imageButton3"
-        android:layout_alignStart="@+id/imageButton3"
+        android:layout_alignLeft="@+id/aboutButton"
+        android:layout_alignStart="@+id/aboutButton"
         android:background="#DDE8F0" />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvWelcomeMessage"
-        android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/imageButton2"
-        android:layout_alignStart="@+id/imageButton2"
-        android:layout_marginTop="30dp"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_horizontal"
-        android:textSize="30dp"
-        android:textColor="#fff" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:id="@+id/imageButton4"
-        android:layout_below="@+id/imageButton2"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:layout_alignRight="@+id/imageButton2"
-        android:layout_alignEnd="@+id/imageButton2"
+        android:layout_below="@+id/userInfoButton"
+        android:layout_toRightOf="@+id/aboutButton"
+        android:layout_alignRight="@+id/userInfoButton"
+        android:layout_alignEnd="@+id/userInfoButton"
         android:background="#5AB1FF"
-        android:layout_above="@+id/imageButton5" />
+        android:layout_above="@+id/newsButton" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:id="@+id/imageButton5"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:layout_alignBottom="@+id/imageButton3"
+        android:id="@+id/newsButton"
+        android:layout_toRightOf="@+id/aboutButton"
+        android:layout_alignBottom="@+id/aboutButton"
         android:layout_alignRight="@+id/imageButton4"
         android:layout_alignEnd="@+id/imageButton4"
         android:background="#27B289" />
@@ -65,48 +50,51 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:id="@+id/imageButton7"
+        android:id="@+id/helpButton"
         android:layout_alignParentBottom="true"
         android:background="#5ED7E2"
-        android:layout_alignStart="@+id/imageButton3"
-        android:layout_alignParentStart="true"
-        android:layout_alignRight="@+id/imageButton3"
-        android:layout_alignEnd="@+id/imageButton3" />
+        android:layout_alignStart="@+id/aboutButton"
+        android:layout_alignLeft="@+id/aboutButton"
+        android:layout_alignRight="@+id/aboutButton"
+        android:layout_alignEnd="@+id/aboutButton"
+        android:layout_below="@+id/albumDirectoryButton" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User Info"
+        android:text="USER INFO"
         android:id="@+id/textView2"
-        android:layout_below="@+id/imageButton2"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:layout_alignRight="@+id/imageButton2"
-        android:layout_alignEnd="@+id/imageButton2"
+        android:layout_below="@+id/userInfoButton"
+        android:layout_toRightOf="@+id/aboutButton"
+        android:layout_alignRight="@+id/userInfoButton"
+        android:layout_alignEnd="@+id/userInfoButton"
         android:gravity="center_horizontal"
         android:textColor="#fff"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="35dp"
+        android:textSize="30dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:id="@+id/imageButton6"
+        android:id="@+id/signOutButton"
         android:background="#FFB2B2"
-        android:layout_alignBottom="@+id/imageButton7"
-        android:layout_toRightOf="@+id/imageButton7"
-        android:layout_alignEnd="@+id/imageButton5" />
+        android:layout_alignBottom="@+id/helpButton"
+        android:layout_toRightOf="@+id/helpButton"
+        android:layout_alignEnd="@+id/newsButton"
+        android:layout_alignRight="@+id/newsButton"
+        android:layout_below="@+id/albumDirectoryButton" />
 
     <SearchView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
-        android:layout_below="@+id/imageButton5"
-        android:layout_alignLeft="@+id/imageButton3"
-        android:layout_alignStart="@+id/imageButton3"
-        android:layout_above="@+id/imageButton7"
-        android:layout_alignRight="@+id/imageButton6"
-        android:layout_alignEnd="@+id/imageButton6"
-        android:queryHint="Search an Album" />
+        android:layout_below="@+id/newsButton"
+        android:layout_alignLeft="@+id/aboutButton"
+        android:layout_alignStart="@+id/aboutButton"
+        android:queryHint="Search Albums"
+        android:layout_alignRight="@+id/newsButton"
+        android:layout_alignEnd="@+id/newsButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -116,10 +104,97 @@
         android:gravity="center|center_horizontal"
         android:textSize="30dp"
         android:textColor="#fff"
-        android:layout_marginBottom="57dp"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/imageButton7"
-        android:layout_alignRight="@+id/imageButton6"
-        android:layout_alignEnd="@+id/imageButton6" />
+        android:layout_toRightOf="@+id/helpButton"
+        android:layout_alignRight="@+id/signOutButton"
+        android:layout_alignEnd="@+id/signOutButton"
+        android:layout_marginBottom="35dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/albumDirectoryButton"
+        android:layout_below="@+id/searchView"
+        android:layout_alignLeft="@+id/searchView"
+        android:layout_alignStart="@+id/searchView"
+        android:layout_alignRight="@+id/searchView"
+        android:layout_alignEnd="@+id/searchView"
+        android:background="#FC846B" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ABOUT"
+        android:id="@+id/textView"
+        android:gravity="center_horizontal"
+        android:textSize="30dp"
+        android:textColor="#fff"
+        android:layout_alignBottom="@+id/aboutButton"
+        android:layout_alignLeft="@+id/aboutButton"
+        android:layout_alignStart="@+id/aboutButton"
+        android:layout_toLeftOf="@+id/newsButton"
+        android:layout_toStartOf="@+id/newsButton"
+        android:layout_marginBottom="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ALBUM DIRECTORY"
+        android:id="@+id/textView4"
+        android:gravity="center_horizontal"
+        android:textColor="#fff"
+        android:textSize="30dp"
+        android:layout_above="@+id/helpButton"
+        android:layout_alignLeft="@+id/helpButton"
+        android:layout_alignStart="@+id/helpButton"
+        android:layout_alignRight="@+id/albumDirectoryButton"
+        android:layout_alignEnd="@+id/albumDirectoryButton"
+        android:layout_marginBottom="7dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HELP"
+        android:id="@+id/textView6"
+        android:textSize="30dp"
+        android:textColor="#fff"
+        android:gravity="center_horizontal"
+        android:layout_alignBottom="@+id/helpButton"
+        android:layout_alignLeft="@+id/helpButton"
+        android:layout_alignStart="@+id/helpButton"
+        android:layout_toLeftOf="@+id/signOutButton"
+        android:layout_toStartOf="@+id/signOutButton"
+        android:layout_marginBottom="34dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="NEWS"
+        android:id="@+id/textView5"
+        android:layout_alignBottom="@+id/newsButton"
+        android:layout_toRightOf="@+id/aboutButton"
+        android:layout_alignRight="@+id/newsButton"
+        android:layout_alignEnd="@+id/newsButton"
+        android:textSize="30dp"
+        android:textColor="#fff"
+        android:layout_marginBottom="32dp"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView7"
+        android:layout_alignWithParentIfMissing="false"
+        android:gravity="center_horizontal"
+        android:textSize="50dp"
+        android:textColor="#fff"
+        android:layout_above="@+id/aboutButton"
+        android:layout_alignLeft="@+id/aboutButton"
+        android:layout_alignStart="@+id/aboutButton"
+        android:layout_marginBottom="20dp" />
 
 </RelativeLayout>
