@@ -105,7 +105,8 @@
         android:layout_alignStart="@+id/imageButton3"
         android:layout_above="@+id/imageButton7"
         android:layout_alignRight="@+id/imageButton6"
-        android:layout_alignEnd="@+id/imageButton6" />
+        android:layout_alignEnd="@+id/imageButton6"
+        android:queryHint="Search an Album" />
 
     <TextView
         android:layout_width="wrap_content"
