@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.leonardobenitez.leonardobenitez.ripespaghetti">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,12 +19,12 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:label="Register" >
-        </activity>
+            android:label="Register"></activity>
         <activity
             android:name=".UserActivity"
-            android:label="Welcome" >
-        </activity>
+            android:label="Welcome"></activity>
+        <activity android:name=".AlbumInsertActivity"
+            android:label="Insert An Album"></activity>
     </application>
 
 </manifest>
