@@ -39,14 +39,14 @@ public class LoginActivity extends AppCompatActivity {
                     boolean success = jsonResponse.getBoolean("success");
 
                     if (success) {
-                        Log.d("success", "True");
+                        //Log.d("success", "true");
                         String cell = jsonResponse.getString("cell");
                         Intent intent = new Intent(LoginActivity.this, UserActivity.class);
                         intent.putExtra("username", username);
                         intent.putExtra("cell", cell);
                         LoginActivity.this.startActivity(intent);
                     } else {
-                        Log.d("no-success", "False");
+                        //Log.d("success", "false");
                         AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                         builder.setMessage("Login Failed")
                                 .setNegativeButton("Retry", null)

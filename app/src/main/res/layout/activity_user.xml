@@ -13,7 +13,7 @@
         android:layout_alignParentStart="true"
         android:background="#CCB00125"
         android:clickable="true"
-        android:onClick="uploadTopicButton"
+        android:onClick="aboutButtonOnClick"
         android:layout_below="@+id/userInfoButton" />
 
     <ImageButton
@@ -35,7 +35,8 @@
         android:layout_alignRight="@+id/userInfoButton"
         android:layout_alignEnd="@+id/userInfoButton"
         android:background="#5AB1FF"
-        android:layout_above="@+id/newsButton" />
+        android:layout_above="@+id/newsButton"
+        android:onClick="userInfoButtonOnClick" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -45,7 +46,8 @@
         android:layout_alignBottom="@+id/aboutButton"
         android:layout_alignRight="@+id/imageButton4"
         android:layout_alignEnd="@+id/imageButton4"
-        android:background="#27B289" />
+        android:background="#27B289"
+        android:onClick="newsButtonOnClick" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -57,7 +59,8 @@
         android:layout_alignLeft="@+id/aboutButton"
         android:layout_alignRight="@+id/aboutButton"
         android:layout_alignEnd="@+id/aboutButton"
-        android:layout_below="@+id/albumDirectoryButton" />
+        android:layout_below="@+id/albumDirectoryButton"
+        android:onClick="helpButtonOnClick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -83,7 +86,8 @@
         android:layout_toRightOf="@+id/helpButton"
         android:layout_alignEnd="@+id/newsButton"
         android:layout_alignRight="@+id/newsButton"
-        android:layout_below="@+id/albumDirectoryButton" />
+        android:layout_below="@+id/albumDirectoryButton"
+        android:onClick="signOutButtonOnClick" />
 
     <SearchView
         android:layout_width="wrap_content"
@@ -94,7 +98,8 @@
         android:layout_alignStart="@+id/aboutButton"
         android:queryHint="Search Albums"
         android:layout_alignRight="@+id/newsButton"
-        android:layout_alignEnd="@+id/newsButton" />
+        android:layout_alignEnd="@+id/newsButton"
+        android:onClick="searchAlbumOnClick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -119,7 +124,8 @@
         android:layout_alignStart="@+id/searchView"
         android:layout_alignRight="@+id/searchView"
         android:layout_alignEnd="@+id/searchView"
-        android:background="#FC846B" />
+        android:background="#FC846B"
+        android:onClick="albumDirectoryButtonOnClick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -187,7 +193,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView7"
+        android:id="@+id/tvWelcomeMessage"
         android:layout_alignWithParentIfMissing="false"
         android:gravity="center_horizontal"
         android:textSize="50dp"

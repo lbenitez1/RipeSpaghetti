@@ -61,8 +61,8 @@ public class AlbumInsertActivity extends AppCompatActivity {
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-                    InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                    Bitmap yourSelectedImage = decodeUri(selectedImage);
+                    //InputStream imageStream = getContentResolver().openInputStream(selectedImage);
+                    //Bitmap yourSelectedImage = decodeUri(selectedImage);
                 }
         }
     }
