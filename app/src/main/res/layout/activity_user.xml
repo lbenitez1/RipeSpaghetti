@@ -11,7 +11,7 @@
         android:id="@+id/aboutButton"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#CCB00125"
+        android:background="#FFB2B2"
         android:clickable="true"
         android:onClick="aboutButtonOnClick"
         android:layout_below="@+id/userInfoButton" />
@@ -49,19 +49,6 @@
         android:background="#27B289"
         android:onClick="newsButtonOnClick" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:id="@+id/helpButton"
-        android:layout_alignParentBottom="true"
-        android:background="#5ED7E2"
-        android:layout_alignStart="@+id/aboutButton"
-        android:layout_alignLeft="@+id/aboutButton"
-        android:layout_alignRight="@+id/aboutButton"
-        android:layout_alignEnd="@+id/aboutButton"
-        android:layout_below="@+id/albumDirectoryButton"
-        android:onClick="helpButtonOnClick" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -77,55 +64,22 @@
         android:layout_marginTop="35dp"
         android:textSize="30dp" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:id="@+id/signOutButton"
-        android:background="#FFB2B2"
-        android:layout_alignBottom="@+id/helpButton"
-        android:layout_toRightOf="@+id/helpButton"
-        android:layout_alignEnd="@+id/newsButton"
-        android:layout_alignRight="@+id/newsButton"
-        android:layout_below="@+id/albumDirectoryButton"
-        android:onClick="signOutButtonOnClick" />
-
-    <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchView"
-        android:layout_below="@+id/newsButton"
-        android:layout_alignLeft="@+id/aboutButton"
-        android:layout_alignStart="@+id/aboutButton"
-        android:queryHint="Search Albums"
-        android:layout_alignRight="@+id/newsButton"
-        android:layout_alignEnd="@+id/newsButton"
-        android:onClick="searchAlbumOnClick" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SIGN OUT"
-        android:id="@+id/textView3"
+        android:id="@+id/signOut"
         android:gravity="center|center_horizontal"
         android:textSize="30dp"
         android:textColor="#fff"
+        android:background="#CCB00125"
+        android:layout_toRightOf="@+id/help"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/helpButton"
-        android:layout_alignRight="@+id/signOutButton"
-        android:layout_alignEnd="@+id/signOutButton"
-        android:layout_marginBottom="35dp" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:id="@+id/albumDirectoryButton"
-        android:layout_below="@+id/searchView"
-        android:layout_alignLeft="@+id/searchView"
-        android:layout_alignStart="@+id/searchView"
-        android:layout_alignRight="@+id/searchView"
-        android:layout_alignEnd="@+id/searchView"
-        android:background="#FC846B"
-        android:onClick="albumDirectoryButtonOnClick" />
+        android:layout_below="@+id/albumDirectory"
+        android:layout_alignRight="@+id/newsButton"
+        android:layout_alignEnd="@+id/newsButton"
+        android:clickable="true"
+        android:onClick="signOutButtonOnClick" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -148,32 +102,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ALBUM DIRECTORY"
-        android:id="@+id/textView4"
+        android:id="@+id/albumDirectory"
         android:gravity="center_horizontal"
         android:textColor="#fff"
         android:textSize="30dp"
-        android:layout_above="@+id/helpButton"
-        android:layout_alignLeft="@+id/helpButton"
-        android:layout_alignStart="@+id/helpButton"
-        android:layout_alignRight="@+id/albumDirectoryButton"
-        android:layout_alignEnd="@+id/albumDirectoryButton"
-        android:layout_marginBottom="7dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="HELP"
-        android:id="@+id/textView6"
-        android:textSize="30dp"
-        android:textColor="#fff"
-        android:gravity="center_horizontal"
-        android:layout_alignBottom="@+id/helpButton"
-        android:layout_alignLeft="@+id/helpButton"
-        android:layout_alignStart="@+id/helpButton"
-        android:layout_toLeftOf="@+id/signOutButton"
-        android:layout_toStartOf="@+id/signOutButton"
-        android:layout_marginBottom="34dp" />
+        android:background="#FC846B"
+        android:onClick="albumDirectoryButtonOnClick"
+        android:layout_below="@+id/searchAlbum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/signOut"
+        android:layout_alignEnd="@+id/signOut" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -202,5 +141,35 @@
         android:layout_alignLeft="@+id/aboutButton"
         android:layout_alignStart="@+id/aboutButton"
         android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HELP"
+        android:id="@+id/help"
+        android:textSize="30dp"
+        android:textColor="#fff"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_below="@+id/albumDirectory"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/newsButton"
+        android:layout_toStartOf="@+id/newsButton"
+        android:background="#5ED7E2"
+        android:onClick="helpButtonOnClick" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/searchAlbum"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/textView5"
+        android:layout_alignRight="@+id/newsButton"
+        android:layout_alignEnd="@+id/newsButton"
+        android:background="#fff"
+        android:text="Search Album" />
 
 </RelativeLayout>

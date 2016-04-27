@@ -8,9 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,7 +28,6 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
         // display hello to user
         final TextView welcomeMessage = (TextView) findViewById(R.id.tvWelcomeMessage);
         Intent intent = getIntent();
@@ -34,8 +36,51 @@ public class UserActivity extends AppCompatActivity {
         // construct welcome message to user
         String message = "Hello "+username;
         welcomeMessage.setText(message);
+        // Edit text variable for grabbing info for search album
+        EditText searchAlbum = ((EditText)findViewById(R.id.searchAlbum));
+        searchAlbum.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent){
+                boolean handled = false;
+                if(i == EditorInfo.IME_ACTION_DONE){
+                    String search = textView.getText().toString();
+                    // Response received from the server
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
 
-    }
+                                if (success) {
+                                    //Log.d("success", "true");
+                                    String album = jsonResponse.getString("album");
+                                    Intent intent = new Intent(UserActivity.this, AlbumActivity.class);
+                                    intent.putExtra("username", username);
+                                    intent.putExtra("album", album);
+                                    UserActivity.this.startActivity(intent);
+                                } else {
+                                    //Log.d("success", "false");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
+                                    builder.setMessage("Album does not exist\nWould you like to upload this album?")
+                                            .setNegativeButton("Upload", null)
+                                            .create()
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    AlbumRequest albumRequest = new AlbumRequest(search, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
+                    queue.add(albumRequest);
+                }
+                return handled;
+            }
+        });
+        }
     public void userInfoButtonOnClick(View v){
         // view user info and edit
         Intent userInfo = new Intent(getApplicationContext(),UserInfoActivity.class);
@@ -66,49 +111,5 @@ public class UserActivity extends AppCompatActivity {
         // get help
         Intent help = new Intent(getApplicationContext(),HelpActivity.class);
         UserActivity.this.startActivity(help);
-    }
-    public void searchAlbumOnClick(View v){
-        // search album
-        final String search = null;
-        SearchManager searchManager =
-                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
-                (SearchView) findItem(R.id.searchView).getActionView();
-        searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getComponentName()));
-        // Response received from the server
-        Response.Listener<String> responseListener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("success");
-
-                    if (success) {
-                        //Log.d("success", "true");
-                        String album = jsonResponse.getString("album");
-                        Intent intent = new Intent(UserActivity.this, AlbumActivity.class);
-                        intent.putExtra("username", username);
-                        intent.putExtra("album", album);
-                        UserActivity.this.startActivity(intent);
-                    } else {
-                        //Log.d("success", "false");
-                        AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
-                        builder.setMessage("Album does not exist\nWould you like to upload this album?")
-                                .setNegativeButton("Upload", null)
-                                .create()
-                                .show();
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-/*
-        AlbumRequest albumRequest = new AlbumRequest(search, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
-        queue.add(albumRequest);
-*/
     }
 }
