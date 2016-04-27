@@ -2,14 +2,23 @@ package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 
+import com.android.volley.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
@@ -23,6 +32,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
 
     String albumCoverUrl = null;
     private static final int SELECT_PHOTO = 100;
+    static String encodedImage = "";
 
     public void AlbumCoverUploadButton(View v){
         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
@@ -35,10 +45,12 @@ public class AlbumInsertActivity extends AppCompatActivity {
         final String artistName = ((EditText)findViewById(R.id.ArtistNameEditText)).getText().toString();
         final String albumTitle = ((EditText)findViewById(R.id.AlbumTitleEditText)).getText().toString();
         final String releaseDate = ((EditText)findViewById(R.id.ReleaseDateEditText)).getText().toString();
+        //this will get sent to the server and the filename will be figured out
+        final String albumCoverImage = encodedImage;
         //albumCoverUrl = figure out how to store the path to the picture that has been uploaded to the server.
         //need a
         //figure out how to add album cover image file to server
-        if(artistName == null || albumTitle == null || releaseDate == null){
+        if(artistName == null || albumTitle == null || releaseDate == null || encodedImage == null){
             AlertDialog.Builder builder = new AlertDialog.Builder(AlbumInsertActivity.this);
             builder.setMessage("Please Fill All Text Fields")
                     .setNegativeButton("Ok", null)
@@ -46,7 +58,33 @@ public class AlbumInsertActivity extends AppCompatActivity {
                     .show();
         }else{
             //response from the server
+            Response.Listener<String> responseListener = new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        boolean success = jsonResponse.getBoolean("success");
 
+                        if (success) {
+                            //Log.d("success", "true");
+                            String cell = jsonResponse.getString("cell");
+                            Intent intent = new Intent(AlbumInsertActivity.this, UserActivity.class);
+                            AlbumInsertActivity.this.startActivity(intent);
+                        } else {
+                            //Log.d("success", "false");
+                            android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(AlbumInsertActivity.this);
+                            builder.setMessage("Album Upload Failed!")
+                                    .setNegativeButton("Retry", null)
+                                    .create()
+                                    .show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            };
         }
 
 
@@ -56,17 +94,29 @@ public class AlbumInsertActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent){
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-
-        switch(requestCode){
+        Bitmap yourSelectedImage = null;
+        switch(requestCode) {
             case SELECT_PHOTO:
                 if(resultCode == RESULT_OK){
                     Uri selectedImage = imageReturnedIntent.getData();
-                    //InputStream imageStream = getContentResolver().openInputStream(selectedImage);
-                    //Bitmap yourSelectedImage = decodeUri(selectedImage);
+
+                    try {
+                        //gets selected image
+                        yourSelectedImage = decodeUri(selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    //send image to server location
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    yourSelectedImage.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] imageBytes = baos.toByteArray();
+
+                    //this string gets sent to php file. must be decoded.
+                    encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
                 }
         }
     }
-     //figure out this shit tomorrow, look at  tutorial in bookmarks
 
     private Bitmap decodeUri(Uri selectedImage) throws FileNotFoundException {
 
@@ -97,4 +147,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
         return BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage), null, o2);
 
     }
+     //figure out this shit tomorrow, look at  tutorial in bookmarks
+
+
 }
