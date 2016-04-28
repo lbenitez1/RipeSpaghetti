@@ -170,6 +170,8 @@
         android:layout_alignRight="@+id/newsButton"
         android:layout_alignEnd="@+id/newsButton"
         android:background="#fff"
-        android:text="Search Album" />
+        android:text="Search Album"
+        android:imeOptions="actionDone"
+        android:singleLine="true"/>
 
 </RelativeLayout>

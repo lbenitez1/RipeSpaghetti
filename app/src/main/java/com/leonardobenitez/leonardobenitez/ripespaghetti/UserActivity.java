@@ -1,5 +1,6 @@
 package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import org.json.JSONObject;
 
 public class UserActivity extends AppCompatActivity {
     String username, cell, album;
-    Intent goToAlbum, userInfo, about, news, directory, help;
+    Intent goToAlbum, userInfo, about, news, directory, help, uploadAlbum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +60,19 @@ public class UserActivity extends AppCompatActivity {
                                     //Log.d("success", "false");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
                                     builder.setMessage("Album does not exist\nWould you like to upload this album?")
-                                            .setNegativeButton("Upload", null)
-                                            .create()
+                                        .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // upload by moving to insert album activity
+                                                uploadAlbum = new Intent(UserActivity.this, AlbumInsertActivity.class);
+                                                UserActivity.this.startActivity(uploadAlbum);
+                                            }
+                                        })
+                                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    // Cancel
+                                                    dialog.dismiss();
+                                                }
+                                            })
                                             .show();
                                 }
 
