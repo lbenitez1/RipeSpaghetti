@@ -1,19 +1,14 @@
 package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,7 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserActivity extends AppCompatActivity {
-    String username, cell;
+    String username, cell, album;
+    Intent goToAlbum, userInfo, about, news, directory, help;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +50,11 @@ public class UserActivity extends AppCompatActivity {
 
                                 if (success) {
                                     //Log.d("success", "true");
-                                    String album = jsonResponse.getString("album");
-                                    Intent intent = new Intent(UserActivity.this, AlbumActivity.class);
-                                    intent.putExtra("username", username);
-                                    intent.putExtra("album", album);
-                                    UserActivity.this.startActivity(intent);
+                                    album = jsonResponse.getString("album");
+                                    goToAlbum = new Intent(UserActivity.this, AlbumActivity.class);
+                                    goToAlbum.putExtra("username", username);
+                                    goToAlbum.putExtra("album", album);
+                                    UserActivity.this.startActivity(goToAlbum);
                                 } else {
                                     //Log.d("success", "false");
                                     AlertDialog.Builder builder = new AlertDialog.Builder(UserActivity.this);
@@ -73,7 +69,7 @@ public class UserActivity extends AppCompatActivity {
                             }
                         }
                     };
-                    AlbumRequest albumRequest = new AlbumRequest(search, responseListener);
+                    AlbumSearchRequest albumRequest = new AlbumSearchRequest(search, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(UserActivity.this);
                     queue.add(albumRequest);
                 }
@@ -83,7 +79,7 @@ public class UserActivity extends AppCompatActivity {
         }
     public void userInfoButtonOnClick(View v){
         // view user info and edit
-        Intent userInfo = new Intent(getApplicationContext(),UserInfoActivity.class);
+        userInfo = new Intent(getApplicationContext(),UserInfoActivity.class);
         userInfo.putExtra("username", username);
         userInfo.putExtra("cell", cell);
         UserActivity.this.startActivity(userInfo);
@@ -94,22 +90,22 @@ public class UserActivity extends AppCompatActivity {
     }
     public void aboutButtonOnClick(View v){
         // sign out
-        Intent about = new Intent(getApplicationContext(),AboutActivity.class);
+        about = new Intent(getApplicationContext(),AboutActivity.class);
         UserActivity.this.startActivity(about);
     }
     public void newsButtonOnClick(View v){
         // view news in music
-        Intent news = new Intent(getApplicationContext(),NewsActivity.class);
+        news = new Intent(getApplicationContext(),NewsActivity.class);
         UserActivity.this.startActivity(news);
     }
     public void albumDirectoryButtonOnClick(View v){
         // view all albums in directory
-        Intent directory = new Intent(getApplicationContext(),AlbumDirectoryActivity.class);
+        directory = new Intent(getApplicationContext(),AlbumDirectoryActivity.class);
         UserActivity.this.startActivity(directory);
     }
     public void helpButtonOnClick(View v){
         // get help
-        Intent help = new Intent(getApplicationContext(),HelpActivity.class);
+        help = new Intent(getApplicationContext(),HelpActivity.class);
         UserActivity.this.startActivity(help);
     }
 }

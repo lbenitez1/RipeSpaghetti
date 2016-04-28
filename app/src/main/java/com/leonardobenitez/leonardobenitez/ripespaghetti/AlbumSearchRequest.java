@@ -9,10 +9,10 @@ import java.util.Map;
 /**
  * Created by leonardobenitez on 4/27/16.
  */
-public class AlbumRequest extends StringRequest {
+public class AlbumSearchRequest extends StringRequest {
     private static final String SEARCH_ALBUM_URL = "http://leonardobenitez.com/ripeSpaghetti/volleySearchAlbum.php";
     private Map<String, String> params;
-    public AlbumRequest(String search, Response.Listener<String> listener) {
+    public AlbumSearchRequest(String search, Response.Listener<String> listener) {
         super(Method.POST, SEARCH_ALBUM_URL, listener, null);
         params = new HashMap<>();
         params.put("search", search);
