@@ -22,7 +22,7 @@
             android:label="Register" />
         <activity
             android:name=".UserActivity"
-            android:label="WelcomeS" />
+            android:label="Welcome" />
         <activity
             android:name=".UserInfoActivity"
             android:label="User Info" />

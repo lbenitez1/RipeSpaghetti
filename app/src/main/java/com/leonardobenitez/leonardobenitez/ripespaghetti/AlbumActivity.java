@@ -1,5 +1,6 @@
 package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
@@ -9,6 +10,10 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,9 +26,9 @@ import org.json.JSONObject;
 
 public class AlbumActivity extends AppCompatActivity {
     //variables to be sent to php files
-    String albumName, userName;
+    String albumName, userName, albumID, userID;
     //variables to retrieved from php files
-    String album, coverArt, artist, title;
+    String album, coverArt, artist, title, releaseDate;
     int count;
     Bitmap albumCover;
     //array for album reviews
@@ -36,7 +41,45 @@ public class AlbumActivity extends AppCompatActivity {
         //get info from previous activity
         Intent intent = getIntent();
         albumName = intent.getStringExtra("album");
+        albumID = intent.getStringExtra("albumID");
         userName = intent.getStringExtra("username");
+        userID = intent.getStringExtra("userID");
+        EditText reviewAlbum = ((EditText)findViewById(R.id.addReview));
+        reviewAlbum.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent){
+                boolean handled = false;
+                if(i == EditorInfo.IME_ACTION_DONE){
+                    String review = textView.getText().toString();
+                    // Response received from the server
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
+                                if (success) {
+                                    //Log.d("success", "true");
+                                } else {
+                                    //Log.d("success", "false");
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    //Add request to upload review
+                    UploadReviewRequest albumRequest = new UploadReviewRequest(review, userID, albumID, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(AlbumActivity.this);
+                    queue.add(albumRequest);
+
+                }
+                return handled;
+            }
+        });
+
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -49,10 +92,16 @@ public class AlbumActivity extends AppCompatActivity {
                         album = jsonResponse.getString("album");
                         coverArt = jsonResponse.getString("coverart");
                         artist = jsonResponse.getString("artist");
+                        releaseDate = jsonResponse.getString("releasedate");
                         albumCover = StringToBitMap(coverArt);
+                        ImageView albumView = (ImageView) findViewById(R.id.albumCoverView);
+                        albumView.setImageBitmap(
+                                decodeSampledBitmapFromResource(getResources(), R.id.albumCoverView, 100, 100));
                         title = album+" by "+artist;
                         final TextView albumTitle = (TextView) findViewById(R.id.tvAlbumName);
+                        final TextView releaseTitle = (TextView) findViewById(R.id.tvReleaseDate);
                         albumTitle.setText(title);
+                        releaseTitle.setText(releaseDate);
 
                         boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
                         if (reviewsuccess) {
@@ -62,6 +111,7 @@ public class AlbumActivity extends AppCompatActivity {
                             for(int i = 0; i<count;i++){
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
                                 tvReviews[i].setText(reviews[i]);
+
                                 albumLayout .addView(tvReviews[i]);
                             }
                         }
