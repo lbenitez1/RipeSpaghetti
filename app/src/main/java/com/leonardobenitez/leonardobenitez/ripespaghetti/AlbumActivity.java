@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -31,6 +32,7 @@ public class AlbumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+        final RelativeLayout albumLayout = (RelativeLayout)findViewById(R.id.albumLayout);
         //get info from previous activity
         Intent intent = getIntent();
         albumName = intent.getStringExtra("album");
@@ -56,14 +58,18 @@ public class AlbumActivity extends AppCompatActivity {
                         if (reviewsuccess) {
                             count = jsonResponse.getInt("count");
                             reviews = new String[count];
+                            TextView[] tvReviews = new TextView[count];
                             for(int i = 0; i<count;i++){
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
+                                tvReviews[i].setText(reviews[i]);
+                                albumLayout .addView(tvReviews[i]);
                             }
-
                         }
                         else{
                             //display message that album has no reviews
-
+                            TextView noReview = new TextView(getApplicationContext());
+                            noReview.setText("No Reviews");
+                            albumLayout .addView(noReview);
                         }
                     } else {
                         //Log.d("success", "false");
