@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,7 +19,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AlbumActivity extends AppCompatActivity {
+    //variables to be sent to php files
     String albumName, userName;
+    //variables to retrieved from php files
+    String album, coverArt, artist, title;
+    int count;
+    Bitmap albumCover;
+    //array for album reviews
+    String[] reviews;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +40,34 @@ public class AlbumActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
-                    boolean success = jsonResponse.getBoolean("albumsuccess");
-                    if (success) {
+                    boolean albumsuccess = jsonResponse.getBoolean("albumsuccess");
+                    if (albumsuccess) {
                         //Log.d("success", "true");
                         //display reviews
+                        album = jsonResponse.getString("album");
+                        coverArt = jsonResponse.getString("coverart");
+                        artist = jsonResponse.getString("artist");
+                        albumCover = StringToBitMap(coverArt);
+                        title = album+" by "+artist;
+                        final TextView albumTitle = (TextView) findViewById(R.id.tvAlbumName);
+                        albumTitle.setText(title);
 
+                        boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
+                        if (reviewsuccess) {
+                            count = jsonResponse.getInt("count");
+                            reviews = new String[count];
+                            for(int i = 0; i<count;i++){
+                                reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
+                            }
+
+                        }
+                        else{
+                            //display message that album has no reviews
+
+                        }
                     } else {
                         //Log.d("success", "false");
-                        //display message that this album has no reviews
+                        //display message that album has error
 
                     }
                 } catch (JSONException e) {
