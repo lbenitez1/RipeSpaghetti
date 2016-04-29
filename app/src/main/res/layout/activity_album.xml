@@ -37,7 +37,9 @@
         android:layout_below="@+id/albumCoverView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="#FC846B" />
+        android:background="#FC846B"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
