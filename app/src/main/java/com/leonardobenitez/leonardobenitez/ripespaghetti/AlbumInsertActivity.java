@@ -61,7 +61,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
         //figure out how to add album cover image file to server
         if(artistName == null || albumTitle == null || releaseDate == null || encodedImage == null){
             AlertDialog.Builder builder = new AlertDialog.Builder(AlbumInsertActivity.this);
-            builder.setMessage("Please Fill All Text Fields")
+            builder.setMessage("Please Fill All Text Fields or Upload An Image")
                     .setNegativeButton("Ok", null)
                     .create()
                     .show();
@@ -117,6 +117,11 @@ public class AlbumInsertActivity extends AppCompatActivity {
                         yourSelectedImage = decodeUri(selectedImage);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
+                        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(AlbumInsertActivity.this);
+                        builder.setMessage("Album Cover Upload Failed! Try Again.")
+                                .setNegativeButton("Ok", null)
+                                .create()
+                                .show();
                     }
 
                     //send image to server location
@@ -126,6 +131,11 @@ public class AlbumInsertActivity extends AppCompatActivity {
 
                     //this string gets sent to php file. must be decoded.
                     encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                    android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(AlbumInsertActivity.this);
+                    builder.setMessage("Album Cover Upload Successful!")
+                            .setNegativeButton("Ok", null)
+                            .create()
+                            .show();
                 }
         }
     }
