@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,6 +31,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_insert);
+
     }
 
     Intent goToAlbum;
@@ -159,7 +161,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
         return BitmapFactory.decodeStream(getContentResolver().openInputStream(selectedImage), null, o2);
 
     }
-     //figure out this shit tomorrow, look at  tutorial in bookmarks
+
 
 
 }
