@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -57,7 +58,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
         //albumCoverUrl = figure out how to store the path to the picture that has been uploaded to the server.
         //need a
         //figure out how to add album cover image file to server
-        if(artistName == null || albumTitle == null || releaseDate == null || encodedImage == null){
+        if(artistName.equals(null) || albumTitle.equals(null) || releaseDate.equals(null) || encodedImage.equals(null)){
             AlertDialog.Builder builder = new AlertDialog.Builder(AlbumInsertActivity.this);
             builder.setMessage("Please Fill All Text Fields or Upload An Image")
                     .setNegativeButton("Ok", null)
@@ -129,6 +130,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
 
                     //this string gets sent to php file. must be decoded.
                     encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+                    Log.d("RipeSpaghetti", "encodedImage= " + encodedImage);
                     android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(AlbumInsertActivity.this);
                     builder.setMessage("Album Cover Upload Successful!")
                             .setNegativeButton("Ok", null)
