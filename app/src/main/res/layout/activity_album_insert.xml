@@ -7,8 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.leonardobenitez.leonardobenitez.ripespaghetti.AlbumInsertActivity"
-    android:background="#DDE8F0">
+    tools:context="com.leonardobenitez.leonardobenitez.ripespaghetti.AlbumInsertActivity">
 
     <EditText
         android:layout_width="wrap_content"
@@ -43,26 +42,6 @@
         android:layout_alignParentEnd="true"
         android:hint="Release Date" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Upload Album Cover..."
-        android:id="@+id/AlbumCoverUploadTextView"
-        android:layout_below="@+id/ReleaseDateEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Upload"
-        android:id="@+id/AlbumCoverUploadButton"
-        android:layout_below="@+id/ReleaseDateEditText"
-        android:layout_toRightOf="@+id/AlbumCoverUploadTextView"
-        android:layout_toEndOf="@+id/AlbumCoverUploadTextView" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -72,6 +51,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:onClick="InsertAlbumButton" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Album Cover"
+        android:id="@+id/albumCoverUploadButton"
+        android:layout_below="@+id/ReleaseDateEditText"
+        android:layout_centerHorizontal="true"
+        android:onClick="AlbumCoverUploadButton" />
 
 </RelativeLayout>
