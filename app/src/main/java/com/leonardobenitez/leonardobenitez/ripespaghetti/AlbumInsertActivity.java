@@ -31,6 +31,8 @@ public class AlbumInsertActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_insert);
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("username");
 
     }
 
@@ -45,11 +47,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, SELECT_PHOTO);
     }
-
     public void InsertAlbumButton(View v){
-        //get user info
-        Intent intent = getIntent();
-        userName = intent.getStringExtra("username");
         //receive what was input to the text fields
         final String artistName = ((EditText)findViewById(R.id.ArtistNameEditText)).getText().toString();
         final String albumTitle = ((EditText)findViewById(R.id.AlbumTitleEditText)).getText().toString();
