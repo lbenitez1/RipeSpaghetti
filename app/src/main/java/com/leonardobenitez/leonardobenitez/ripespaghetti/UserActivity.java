@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserActivity extends AppCompatActivity {
-    String username, cell, album;
+    String username, cell, albumName;
     Intent goToAlbum, userInfo, about, news, directory, help, uploadAlbum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +51,10 @@ public class UserActivity extends AppCompatActivity {
 
                                 if (success) {
                                     //Log.d("success", "true");
-                                    album = jsonResponse.getString("album");
+                                    albumName = jsonResponse.getString("albumname");
                                     goToAlbum = new Intent(UserActivity.this, AlbumActivity.class);
                                     goToAlbum.putExtra("username", username);
-                                    goToAlbum.putExtra("album", album);
+                                    goToAlbum.putExtra("albumname", albumName);
                                     UserActivity.this.startActivity(goToAlbum);
                                 } else {
                                     //Log.d("success", "false");
@@ -64,6 +64,7 @@ public class UserActivity extends AppCompatActivity {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 // upload by moving to insert album activity
                                                 uploadAlbum = new Intent(UserActivity.this, AlbumInsertActivity.class);
+                                                uploadAlbum.putExtra("username", username);
                                                 UserActivity.this.startActivity(uploadAlbum);
                                             }
                                         })

@@ -26,13 +26,14 @@ import org.json.JSONObject;
 
 public class AlbumActivity extends AppCompatActivity {
     //variables to be sent to php files
-    String albumName, userName, albumID, userID;
+    String albumName, userName;
     //variables to retrieved from php files
     String album, coverArt, artist, title, releaseDate;
     int count;
     Bitmap albumCover;
     //array for album reviews
     String[] reviews;
+    String[] users;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,10 +41,8 @@ public class AlbumActivity extends AppCompatActivity {
         final RelativeLayout albumLayout = (RelativeLayout)findViewById(R.id.albumLayout);
         //get info from previous activity
         Intent intent = getIntent();
-        albumName = intent.getStringExtra("album");
-        albumID = intent.getStringExtra("albumID");
+        albumName = intent.getStringExtra("albumname");
         userName = intent.getStringExtra("username");
-        userID = intent.getStringExtra("userID");
         EditText reviewAlbum = ((EditText)findViewById(R.id.addReview));
         reviewAlbum.setOnEditorActionListener(new TextView.OnEditorActionListener(){
             @Override
@@ -71,7 +70,7 @@ public class AlbumActivity extends AppCompatActivity {
                     };
 
                     //Add request to upload review
-                    UploadReviewRequest albumRequest = new UploadReviewRequest(review, userID, albumID, responseListener);
+                    UploadReviewRequest albumRequest = new UploadReviewRequest(review, userName, albumName, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(AlbumActivity.this);
                     queue.add(albumRequest);
 
@@ -104,14 +103,15 @@ public class AlbumActivity extends AppCompatActivity {
                         releaseTitle.setText(releaseDate);
 
                         boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
-                        if (reviewsuccess) {
-                            count = jsonResponse.getInt("count");
+                        count = jsonResponse.getInt("count");
+                        if (count > 0) {
                             reviews = new String[count];
+                            users = new String[count];
                             TextView[] tvReviews = new TextView[count];
                             for(int i = 0; i<count;i++){
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
-                                tvReviews[i].setText(reviews[i]);
-
+                                users[i] = jsonResponse.getString("user"+Integer.toString(i));
+                                tvReviews[i].setText(users[i]+": "+reviews[i]);
                                 albumLayout .addView(tvReviews[i]);
                             }
                         }

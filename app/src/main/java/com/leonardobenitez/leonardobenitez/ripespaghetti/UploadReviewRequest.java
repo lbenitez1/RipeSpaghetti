@@ -13,10 +13,10 @@ import java.util.Map;
 public class UploadReviewRequest extends StringRequest {
     private static final String UPLOAD_REVIEW_URL = "http://leonardobenitez.com/ripeSpaghetti/volleyAlbum.php";
     private Map<String, String> params;
-    public UploadReviewRequest(String review, String userID, String albumID, Response.Listener<String> listener) {
+    public UploadReviewRequest(String review, String userName, String albumID, Response.Listener<String> listener) {
         super(Method.POST, UPLOAD_REVIEW_URL, listener, null);
         params = new HashMap<>();
-        params.put("userid", userID);
+        params.put("username", userName);
         params.put("albumid", albumID);
         params.put("review", review);
     }

@@ -13,7 +13,9 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +32,9 @@ public class AlbumInsertActivity extends AppCompatActivity {
         setContentView(R.layout.activity_album_insert);
     }
 
+    Intent goToAlbum;
     String albumCoverUrl = null;
+    String userName;
     private static final int SELECT_PHOTO = 100;
     static String encodedImage = "";
 
@@ -41,6 +45,9 @@ public class AlbumInsertActivity extends AppCompatActivity {
     }
 
     public void InsertAlbumButton(View v){
+        //get user info
+        Intent intent = getIntent();
+        userName = intent.getStringExtra("username");
         //receive what was input to the text fields
         final String artistName = ((EditText)findViewById(R.id.ArtistNameEditText)).getText().toString();
         final String albumTitle = ((EditText)findViewById(R.id.AlbumTitleEditText)).getText().toString();
@@ -67,9 +74,11 @@ public class AlbumInsertActivity extends AppCompatActivity {
 
                         if (success) {
                             //Log.d("success", "true");
-                            String cell = jsonResponse.getString("cell");
-                            Intent intent = new Intent(AlbumInsertActivity.this, UserActivity.class);
-                            AlbumInsertActivity.this.startActivity(intent);
+                            Intent intent = new Intent(AlbumInsertActivity.this, AlbumActivity.class);
+                            goToAlbum = new Intent(AlbumInsertActivity.this, AlbumActivity.class);
+                            goToAlbum.putExtra("username", userName);
+                            goToAlbum.putExtra("albumname", albumTitle);
+                            AlbumInsertActivity.this.startActivity(goToAlbum);
                         } else {
                             //Log.d("success", "false");
                             android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(AlbumInsertActivity.this);
@@ -85,6 +94,9 @@ public class AlbumInsertActivity extends AppCompatActivity {
                 }
 
             };
+            AlbumInsertRequest albumInsertRequest = new AlbumInsertRequest(artistName, albumTitle, releaseDate, albumCoverImage, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(AlbumInsertActivity.this);
+            queue.add(albumInsertRequest);
         }
 
 
