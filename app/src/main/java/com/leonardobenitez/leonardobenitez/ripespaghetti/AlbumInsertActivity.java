@@ -60,7 +60,7 @@ public class AlbumInsertActivity extends AppCompatActivity {
         //albumCoverUrl = figure out how to store the path to the picture that has been uploaded to the server.
         //need a
         //figure out how to add album cover image file to server
-        if(artistName == null || albumTitle == null || releaseDate == null || encodedImage == null){
+        if(artistName.equals(null) || albumTitle.equals(null) || releaseDate.equals(null) || encodedImage.equals(null)){
             AlertDialog.Builder builder = new AlertDialog.Builder(AlbumInsertActivity.this);
             builder.setMessage("Please Fill All Text Fields or Upload An Image")
                     .setNegativeButton("Ok", null)
