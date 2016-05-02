@@ -73,10 +73,8 @@ public class AlbumInsertActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
                         boolean success = jsonResponse.getBoolean("success");
-
                         if (success) {
                             //Log.d("success", "true");
-                            Intent intent = new Intent(AlbumInsertActivity.this, AlbumActivity.class);
                             goToAlbum = new Intent(AlbumInsertActivity.this, AlbumActivity.class);
                             goToAlbum.putExtra("username", userName);
                             goToAlbum.putExtra("albumname", albumTitle);
