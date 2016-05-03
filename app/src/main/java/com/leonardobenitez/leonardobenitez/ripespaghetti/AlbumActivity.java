@@ -16,6 +16,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -122,6 +123,7 @@ public class AlbumActivity extends AppCompatActivity {
                         title = album+" by "+artist;
                         final TextView albumTitle = (TextView) findViewById(R.id.tvAlbumName);
                         final TextView releaseTitle = (TextView) findViewById(R.id.tvReleaseDate);
+                        final ListView albumReviewListView = (ListView)findViewById(R.id.albumReviewListView);
                         albumTitle.setText(title);
                         releaseTitle.setText(releaseDate);
 
@@ -137,14 +139,17 @@ public class AlbumActivity extends AppCompatActivity {
                                 //Log.d("reviews", reviews[i]);
                                 users[i] = jsonResponse.getString("user"+Integer.toString(i));
                                 tvReviews[i].setText(users[i]+": "+reviews[i]);
-                                albumLayout.addView(tvReviews[i]);
+                                //albumLayout.addView(tvReviews[i]);
+                                albumReviewListView.addView(tvReviews[i]);
                             }
                         }
                         else{
                             //display message that album has no reviews
                             TextView noReview = new TextView(getApplicationContext());
                             noReview.setText("No Reviews");
-                            albumLayout.addView(noReview);
+                            //albumLayout.addView(noReview);
+                            albumReviewListView.addView(noReview);
+                            //try and turn off choices since no reviews for the album
                         }
                     } else {
                         Log.d("album success", "false");
