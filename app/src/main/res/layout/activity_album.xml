@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.leonardobenitez.leonardobenitez.ripespaghetti.AlbumActivity"
-    android:gravity="end"
-    android:id="@+id/albumLayout">
+    android:id="@+id/albumLayout"
+    android:orientation="vertical"
+    android:gravity="end">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
         android:id="@+id/tvAlbumName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:textSize="30dp"
         android:textColor="#fff"
-        android:gravity="center_vertical|center_horizontal"
-        android:background="#FC846B" />
+        android:gravity="center_horizontal"
+        android:background="#3B5998" />
 
     <ImageView
         android:layout_width="100dp"
@@ -27,23 +23,20 @@
         android:id="@+id/albumCoverView"
         android:layout_marginTop="25dp"
         android:layout_below="@+id/tvAlbumName"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/tvReleaseDate"
-        android:layout_below="@+id/albumCoverView"
-        android:layout_alignLeft="@+id/tvAlbumName"
-        android:layout_alignStart="@+id/tvAlbumName"
-        android:layout_alignRight="@+id/tvAlbumName"
-        android:layout_alignEnd="@+id/tvAlbumName"
-        android:layout_marginTop="20dp"
-        android:gravity="center_vertical|center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textSize="30dp"
+        android:textColor="#000"
+        android:gravity="center_horizontal" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/addReview"
         android:layout_below="@+id/tvReleaseDate"
@@ -58,4 +51,10 @@
         android:singleLine="true"
         android:hint="Add a Review" />
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/reviews"></RelativeLayout>
+
+</LinearLayout>
