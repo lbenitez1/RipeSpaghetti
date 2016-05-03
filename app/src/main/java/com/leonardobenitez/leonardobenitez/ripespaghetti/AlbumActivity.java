@@ -2,7 +2,6 @@ package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 
 import android.content.res.Resources;
@@ -12,14 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,8 +25,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
 
 public class AlbumActivity extends AppCompatActivity {
     //variables to be sent to php files
@@ -133,6 +127,7 @@ public class AlbumActivity extends AppCompatActivity {
                         title = album+" by "+artist;
                         final TextView albumTitle = (TextView) findViewById(R.id.tvAlbumName);
                         final TextView releaseTitle = (TextView) findViewById(R.id.tvReleaseDate);
+                        final ListView albumReviewListView = (ListView)findViewById(R.id.albumReviewListView);
                         albumTitle.setText(title);
                         releaseTitle.setText(releaseDate);
                         boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
@@ -141,24 +136,25 @@ public class AlbumActivity extends AppCompatActivity {
                         if (count != 0) {
                             reviews = new String[count];
                             users = new String[count];
-                            //final TextView[] tvReviews = new TextView[count];
+                            TextView[] tvReviews = new TextView[count];
                             for(int i = 0; i<count;i++){
                                 TextView review = new TextView(getApplicationContext());
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
                                 //Log.d("reviews", reviews[i]);
                                 Log.d("review: "+i, reviews[i]);
                                 users[i] = jsonResponse.getString("user"+Integer.toString(i));
-                                Log.d("user: "+i, users[i]);
-                                review.setText(users[i]+": "+reviews[i]);
-                                albumLayout.addView(review);
-                                //setContentView(review);
+                                tvReviews[i].setText(users[i]+": "+reviews[i]);
+                                //albumLayout.addView(tvReviews[i]);
+                                albumReviewListView.addView(tvReviews[i]);
                             }
                         }
                         else{
                             //display message that album has no reviews
                             TextView noReview = new TextView(getApplicationContext());
                             noReview.setText("No Reviews");
-                            albumLayout.addView(noReview);
+                            //albumLayout.addView(noReview);
+                            albumReviewListView.addView(noReview);
+                            //try and turn off choices since no reviews for the album
                         }
                     } else {
                         Log.d("album success", "false");
