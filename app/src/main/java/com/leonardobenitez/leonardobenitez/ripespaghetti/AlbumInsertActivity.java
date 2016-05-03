@@ -55,6 +55,8 @@ public class AlbumInsertActivity extends AppCompatActivity {
         final String releaseDate = ((EditText)findViewById(R.id.ReleaseDateEditText)).getText().toString();
         //this will get sent to the server and the filename will be figured out
         final String albumCoverImage = encodedImage;
+        int size = albumCoverImage.length();
+        Log.d("string size", "enoded size: "+size);
         //albumCoverUrl = figure out how to store the path to the picture that has been uploaded to the server.
         //need a
         //figure out how to add album cover image file to server

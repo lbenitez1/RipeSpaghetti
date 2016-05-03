@@ -2,6 +2,7 @@ package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 
 import android.content.res.Resources;
@@ -10,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -23,6 +25,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class AlbumActivity extends AppCompatActivity {
     //variables to be sent to php files
@@ -86,16 +90,35 @@ public class AlbumActivity extends AppCompatActivity {
                     JSONObject jsonResponse = new JSONObject(response);
                     boolean albumsuccess = jsonResponse.getBoolean("albumsuccess");
                     if (albumsuccess) {
-                        //Log.d("success", "true");
+                        Log.d("album success", "true");
                         //display reviews
                         album = jsonResponse.getString("album");
+                        Log.d("album name", "album: "+album);
                         coverArt = jsonResponse.getString("coverart");
+                        Log.d("art string", "coverart: "+coverArt);
                         artist = jsonResponse.getString("artist");
                         releaseDate = jsonResponse.getString("releasedate");
                         albumCover = StringToBitMap(coverArt);
                         ImageView albumView = (ImageView) findViewById(R.id.albumCoverView);
-                        albumView.setImageBitmap(
-                                decodeSampledBitmapFromResource(getResources(), R.id.albumCoverView, 100, 100));
+                        if(albumCover == null) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(AlbumActivity.this);
+                            builder.setMessage("Album cover is doo doo")
+                                    .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // upload by moving to insert album activity
+                                        }
+                                    })
+                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // Cancel
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .show();
+                        }
+                        else {
+                            albumView.setImageBitmap(Bitmap.createScaledBitmap(albumCover, 120, 120, false));
+                        }
                         title = album+" by "+artist;
                         final TextView albumTitle = (TextView) findViewById(R.id.tvAlbumName);
                         final TextView releaseTitle = (TextView) findViewById(R.id.tvReleaseDate);
@@ -104,26 +127,41 @@ public class AlbumActivity extends AppCompatActivity {
 
                         boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
                         count = jsonResponse.getInt("count");
-                        if (count > 0) {
+                        Log.d("count reviews", "count: "+count);
+                        if (count != 0) {
                             reviews = new String[count];
                             users = new String[count];
                             TextView[] tvReviews = new TextView[count];
                             for(int i = 0; i<count;i++){
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
+                                //Log.d("reviews", reviews[i]);
                                 users[i] = jsonResponse.getString("user"+Integer.toString(i));
                                 tvReviews[i].setText(users[i]+": "+reviews[i]);
-                                albumLayout .addView(tvReviews[i]);
+                                albumLayout.addView(tvReviews[i]);
                             }
                         }
                         else{
                             //display message that album has no reviews
                             TextView noReview = new TextView(getApplicationContext());
                             noReview.setText("No Reviews");
-                            albumLayout .addView(noReview);
+                            albumLayout.addView(noReview);
                         }
                     } else {
-                        //Log.d("success", "false");
-                        //display message that album has error
+                        Log.d("album success", "false");
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AlbumActivity.this);
+                        builder.setMessage("Album does not exist")
+                                .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // upload by moving to insert album activity
+                                    }
+                                })
+                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // Cancel
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
 
                     }
                 } catch (JSONException e) {
