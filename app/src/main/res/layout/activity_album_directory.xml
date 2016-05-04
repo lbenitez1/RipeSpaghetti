@@ -9,4 +9,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.leonardobenitez.leonardobenitez.ripespaghetti.AlbumDirectoryActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Album Directory:"
+        android:id="@+id/albumDirectoryTextView"
+        android:background="#cbc8f9"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/albumDirectoryListView"
+        android:layout_below="@+id/albumDirectoryTextView"
+        android:layout_centerHorizontal="true"
+        android:background="#f6f9c8"
+        android:choiceMode="singleChoice" />
 </RelativeLayout>
