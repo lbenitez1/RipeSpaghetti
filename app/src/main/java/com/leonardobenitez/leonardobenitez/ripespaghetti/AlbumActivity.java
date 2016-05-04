@@ -1,5 +1,6 @@
 package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -12,10 +13,14 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,6 +31,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class AlbumActivity extends AppCompatActivity {
@@ -38,24 +44,30 @@ public class AlbumActivity extends AppCompatActivity {
     //array for album reviews
     String[] reviews;
     String[] users;
+    private ListView mainListView ;
+    private ArrayAdapter<String> adapter;
+    Intent goToReview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
         final RelativeLayout albumLayout = (RelativeLayout)findViewById(R.id.albumLayout);
-        //LinearLayout lL = new LinearLayout(context);
-        //lL.setOrientation(LinearLayout.VERTICAL);
-        //get info from previous activity
+        mainListView = (ListView) findViewById( R.id.listView );
+        ArrayList<String> reviewList = new ArrayList<String>();
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reviewList);
         Intent intent = getIntent();
         albumName = intent.getStringExtra("albumname");
         userName = intent.getStringExtra("username");
         final EditText reviewAlbum = ((EditText)findViewById(R.id.addReview));
+        final ListView listView = (ListView)findViewById(R.id.listView);
         reviewAlbum.setOnEditorActionListener(new TextView.OnEditorActionListener(){
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent){
                 boolean handled = false;
-                if(i == EditorInfo.IME_ACTION_DONE){
+                if(i == EditorInfo.IME_ACTION_DONE) {
                     String review = textView.getText().toString();
+                    int reviewSize = review.length();
+                    if(reviewSize != 0){
                     // Response received from the server
                     Response.Listener<String> responseListenerReview = new Response.Listener<String>() {
                         @Override
@@ -91,6 +103,18 @@ public class AlbumActivity extends AppCompatActivity {
                     UploadReviewRequest reviewRequest = new UploadReviewRequest(review, userName, albumName, responseListenerReview);
                     RequestQueue queue = Volley.newRequestQueue(AlbumActivity.this);
                     queue.add(reviewRequest);
+                    }
+                    else{
+                        AlertDialog.Builder builder = new AlertDialog.Builder(AlbumActivity.this);
+                        builder.setMessage("Review is empty")
+                                .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // Cancel
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .show();
+                    }
 
                 }
                 return handled;
@@ -137,6 +161,7 @@ public class AlbumActivity extends AppCompatActivity {
                         boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
                         count = jsonResponse.getInt("count");
                         Log.d("count reviews", "count: "+count);
+                        String[] listData = new String[count];
                         if (count != 0) {
                             reviews = new String[count];
                             users = new String[count];
@@ -144,55 +169,37 @@ public class AlbumActivity extends AppCompatActivity {
                             Random rnd = new Random();
                             int prevTextViewId = 0;
                             for(int i = 0; i<count;i++){
-                                //TextView review = new TextView(getApplicationContext());
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
-                                //Log.d("reviews", reviews[i]);
                                 Log.d("review: "+i, reviews[i]);
                                 users[i] = jsonResponse.getString("user"+Integer.toString(i));
-                                //tvReviews[i].setText(users[i]+": "+reviews[i]);
-                                //albumLayout.addView(tvReviews[i]);
-                                //albumReviewListView.addView(tvReviews[i]);
-                                if(count == 0){
-                                    final TextView textView = new TextView(getApplicationContext());
-                                    textView.setText(users[i]+": "+reviews[i]);
-                                    textView.setTextColor(rnd.nextInt() | 0xff000000);
-                                    int curTextViewId = prevTextViewId + 1;
-                                    textView.setId(curTextViewId);
-                                    final RelativeLayout.LayoutParams params =
-                                            new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                                                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+                                listData[i] = users[i] + ": " + reviews[i];
+                                adapter.add(listData[i]);
 
-                                    params.addRule(RelativeLayout.BELOW, R.id.addReview);
-                                    textView.setLayoutParams(params);
-                                }
-                                final TextView textView = new TextView(getApplicationContext());
-                                textView.setText(users[i]+": "+reviews[i]);
-                                textView.setTextColor(rnd.nextInt() | 0xff000000);
-                                int curTextViewId = prevTextViewId + 1;
-                                textView.setId(curTextViewId);
-                                final RelativeLayout.LayoutParams params =
-                                        new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                                                RelativeLayout.LayoutParams.WRAP_CONTENT);
-                                params.addRule(RelativeLayout.BELOW, prevTextViewId);
-
-                                textView.setLayoutParams(params);
-                                prevTextViewId = curTextViewId;
-                                albumLayout.addView(textView, params);
                             }
+                            mainListView.setAdapter( adapter );
+                            mainListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    String selectedFromList = (String)(mainListView.getItemAtPosition(i));
+                                    String[] parts = selectedFromList.split(":");
+                                    String userReview = parts[0];
+                                    String reviewAlbum = parts[1];
+                                    goToReview = new Intent(AlbumActivity.this, ReviewActivity.class);
+                                    goToReview.putExtra("username", userReview);
+                                    goToReview.putExtra("review", reviewAlbum);
+                                    AlbumActivity.this.startActivity(goToReview);
+                                }
+                            });
                         }
                         else{
-                            //display message that album has no reviews
                             TextView noReview = new TextView(getApplicationContext());
                             noReview.setText("No Reviews");
-                            //albumLayout.addView(noReview);
-                            //albumReviewListView.addView(noReview);
-                            //try and turn off choices since no reviews for the album
                         }
                     } else {
                         Log.d("album success", "false");
                         AlertDialog.Builder builder = new AlertDialog.Builder(AlbumActivity.this);
                         builder.setMessage("Album does not exist")
-                                .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("Try again", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         // upload by moving to insert album activity
                                     }

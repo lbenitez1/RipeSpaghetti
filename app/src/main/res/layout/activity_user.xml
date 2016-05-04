@@ -14,26 +14,15 @@
         android:background="#FFB2B2"
         android:clickable="true"
         android:onClick="aboutButtonOnClick"
-        android:layout_below="@+id/userInfoButton" />
-
-    <ImageButton
-        android:layout_width="fill_parent"
-        android:layout_height="105dp"
-        android:id="@+id/userInfoButton"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/aboutButton"
-        android:layout_alignStart="@+id/aboutButton"
-        android:background="#DDE8F0" />
+        android:layout_below="@+id/tvWelcomeMessage" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:id="@+id/imageButton4"
-        android:layout_below="@+id/userInfoButton"
+        android:layout_below="@+id/tvWelcomeMessage"
         android:layout_toRightOf="@+id/aboutButton"
-        android:layout_alignRight="@+id/userInfoButton"
-        android:layout_alignEnd="@+id/userInfoButton"
+        android:layout_alignRight="@+id/tvWelcomeMessage"
         android:background="#5AB1FF"
         android:layout_above="@+id/newsButton"
         android:onClick="userInfoButtonOnClick" />
@@ -48,21 +37,6 @@
         android:layout_alignEnd="@+id/imageButton4"
         android:background="#27B289"
         android:onClick="newsButtonOnClick" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="USER INFO"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/userInfoButton"
-        android:layout_toRightOf="@+id/aboutButton"
-        android:layout_alignRight="@+id/userInfoButton"
-        android:layout_alignEnd="@+id/userInfoButton"
-        android:gravity="center_horizontal"
-        android:textColor="#fff"
-        android:layout_marginTop="35dp"
-        android:textSize="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -134,13 +108,15 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvWelcomeMessage"
         android:layout_alignWithParentIfMissing="false"
-        android:gravity="center_horizontal"
+        android:gravity="center_vertical|center_horizontal"
         android:textSize="50dp"
         android:textColor="#fff"
-        android:layout_above="@+id/aboutButton"
         android:layout_alignLeft="@+id/aboutButton"
         android:layout_alignStart="@+id/aboutButton"
-        android:layout_marginBottom="20dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#DDE8F0"
+        android:layout_alignParentTop="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -182,5 +158,20 @@
         android:layout_above="@+id/albumDirectory"
         android:layout_toLeftOf="@+id/searchAlbum"
         android:background="@android:drawable/ic_search_category_default" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="USER INFO"
+        android:id="@+id/textView10"
+        android:gravity="center_horizontal"
+        android:textColor="#fff"
+        android:textSize="30dp"
+        android:layout_above="@+id/textView"
+        android:layout_toRightOf="@+id/aboutButton"
+        android:layout_alignRight="@+id/imageButton4"
+        android:layout_alignEnd="@+id/imageButton4"
+        android:layout_marginBottom="15dp" />
 
 </RelativeLayout>
