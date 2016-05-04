@@ -111,11 +111,6 @@ public class UserActivity extends AppCompatActivity {
         news = new Intent(getApplicationContext(),NewsActivity.class);
         UserActivity.this.startActivity(news);
     }
-    public void albumDirectoryButtonOnClick(View v){
-        // view all albums in directory
-        directory = new Intent(getApplicationContext(),AlbumDirectoryActivity.class);
-        UserActivity.this.startActivity(directory);
-    }
     public void helpButtonOnClick(View v){
         // get help
         help = new Intent(getApplicationContext(),HelpActivity.class);
