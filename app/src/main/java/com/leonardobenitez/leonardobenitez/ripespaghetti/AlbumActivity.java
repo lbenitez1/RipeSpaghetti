@@ -2,7 +2,6 @@ package com.leonardobenitez.leonardobenitez.ripespaghetti;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 
 import android.content.res.Resources;
@@ -27,8 +26,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-
 public class AlbumActivity extends AppCompatActivity {
     //variables to be sent to php files
     String albumName, userName;
@@ -43,7 +40,7 @@ public class AlbumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-        final RelativeLayout albumLayout = (RelativeLayout)findViewById(R.id.albumLayout);
+        final RelativeLayout albumLayout = (RelativeLayout)findViewById(R.id.reviews);
         //get info from previous activity
         Intent intent = getIntent();
         albumName = intent.getStringExtra("albumname");
@@ -56,16 +53,28 @@ public class AlbumActivity extends AppCompatActivity {
                 if(i == EditorInfo.IME_ACTION_DONE){
                     String review = textView.getText().toString();
                     // Response received from the server
-                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    Response.Listener<String> responseListenerReview = new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             try {
                                 JSONObject jsonResponse = new JSONObject(response);
-                                boolean success = jsonResponse.getBoolean("success");
-                                if (success) {
-                                    //Log.d("success", "true");
+                                boolean successreview = jsonResponse.getBoolean("successreview");
+                                if (successreview) {
+                                    Log.d("success review", "true");
+                                    Intent intent = getIntent();
+                                    finish();
+                                    startActivity(intent);
                                 } else {
-                                    //Log.d("success", "false");
+                                    Log.d("success review", "false");
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(AlbumActivity.this);
+                                    builder.setMessage("Review was Denied")
+                                            .setNegativeButton("Retry", new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    // Cancel
+                                                    dialog.dismiss();
+                                                }
+                                            })
+                                            .show();
                                 }
 
                             } catch (JSONException e) {
@@ -75,9 +84,9 @@ public class AlbumActivity extends AppCompatActivity {
                     };
 
                     //Add request to upload review
-                    UploadReviewRequest albumRequest = new UploadReviewRequest(review, userName, albumName, responseListener);
+                    UploadReviewRequest reviewRequest = new UploadReviewRequest(review, userName, albumName, responseListenerReview);
                     RequestQueue queue = Volley.newRequestQueue(AlbumActivity.this);
-                    queue.add(albumRequest);
+                    queue.add(reviewRequest);
 
                 }
                 return handled;
@@ -94,22 +103,17 @@ public class AlbumActivity extends AppCompatActivity {
                         Log.d("album success", "true");
                         //display reviews
                         album = jsonResponse.getString("album");
-                        Log.d("album name", "album: "+album);
+                        //Log.d("album name", "album: "+album);
                         coverArt = jsonResponse.getString("coverart");
-                        Log.d("art string", "coverart: "+coverArt);
+                        //Log.d("art string", "coverart: "+coverArt);
                         artist = jsonResponse.getString("artist");
                         releaseDate = jsonResponse.getString("releasedate");
                         albumCover = StringToBitMap(coverArt);
                         ImageView albumView = (ImageView) findViewById(R.id.albumCoverView);
                         if(albumCover == null) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(AlbumActivity.this);
-                            builder.setMessage("Album cover is doo doo")
-                                    .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            // upload by moving to insert album activity
-                                        }
-                                    })
-                                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            builder.setMessage("Album cover is unavailable")
+                                    .setNegativeButton("Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             // Cancel
                                             dialog.dismiss();
@@ -126,7 +130,6 @@ public class AlbumActivity extends AppCompatActivity {
                         final ListView albumReviewListView = (ListView)findViewById(R.id.albumReviewListView);
                         albumTitle.setText(title);
                         releaseTitle.setText(releaseDate);
-
                         boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
                         count = jsonResponse.getInt("count");
                         Log.d("count reviews", "count: "+count);
@@ -135,8 +138,10 @@ public class AlbumActivity extends AppCompatActivity {
                             users = new String[count];
                             TextView[] tvReviews = new TextView[count];
                             for(int i = 0; i<count;i++){
+                                TextView review = new TextView(getApplicationContext());
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
                                 //Log.d("reviews", reviews[i]);
+                                Log.d("review: "+i, reviews[i]);
                                 users[i] = jsonResponse.getString("user"+Integer.toString(i));
                                 tvReviews[i].setText(users[i]+": "+reviews[i]);
                                 //albumLayout.addView(tvReviews[i]);
