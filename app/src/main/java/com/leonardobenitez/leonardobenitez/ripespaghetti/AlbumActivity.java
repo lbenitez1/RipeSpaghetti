@@ -15,7 +15,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +25,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.Random;
 
 public class AlbumActivity extends AppCompatActivity {
     //variables to be sent to php files
@@ -40,12 +42,14 @@ public class AlbumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
-        final RelativeLayout albumLayout = (RelativeLayout)findViewById(R.id.reviews);
+        final RelativeLayout albumLayout = (RelativeLayout)findViewById(R.id.albumLayout);
+        //LinearLayout lL = new LinearLayout(context);
+        //lL.setOrientation(LinearLayout.VERTICAL);
         //get info from previous activity
         Intent intent = getIntent();
         albumName = intent.getStringExtra("albumname");
         userName = intent.getStringExtra("username");
-        EditText reviewAlbum = ((EditText)findViewById(R.id.addReview));
+        final EditText reviewAlbum = ((EditText)findViewById(R.id.addReview));
         reviewAlbum.setOnEditorActionListener(new TextView.OnEditorActionListener(){
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent){
@@ -127,7 +131,7 @@ public class AlbumActivity extends AppCompatActivity {
                         title = album+" by "+artist;
                         final TextView albumTitle = (TextView) findViewById(R.id.tvAlbumName);
                         final TextView releaseTitle = (TextView) findViewById(R.id.tvReleaseDate);
-                        final ListView albumReviewListView = (ListView)findViewById(R.id.albumReviewListView);
+                        //final ListView albumReviewListView = (ListView)findViewById(R.id.albumReviewListView);
                         albumTitle.setText(title);
                         releaseTitle.setText(releaseDate);
                         boolean reviewsuccess = jsonResponse.getBoolean("reviewsuccess");
@@ -136,16 +140,44 @@ public class AlbumActivity extends AppCompatActivity {
                         if (count != 0) {
                             reviews = new String[count];
                             users = new String[count];
-                            TextView[] tvReviews = new TextView[count];
+                            //TextView[] tvReviews = new TextView[count];
+                            Random rnd = new Random();
+                            int prevTextViewId = 0;
                             for(int i = 0; i<count;i++){
-                                TextView review = new TextView(getApplicationContext());
+                                //TextView review = new TextView(getApplicationContext());
                                 reviews[i] = jsonResponse.getString("review"+Integer.toString(i));
                                 //Log.d("reviews", reviews[i]);
                                 Log.d("review: "+i, reviews[i]);
                                 users[i] = jsonResponse.getString("user"+Integer.toString(i));
-                                tvReviews[i].setText(users[i]+": "+reviews[i]);
+                                //tvReviews[i].setText(users[i]+": "+reviews[i]);
                                 //albumLayout.addView(tvReviews[i]);
-                                albumReviewListView.addView(tvReviews[i]);
+                                //albumReviewListView.addView(tvReviews[i]);
+                                if(count == 0){
+                                    final TextView textView = new TextView(getApplicationContext());
+                                    textView.setText(users[i]+": "+reviews[i]);
+                                    textView.setTextColor(rnd.nextInt() | 0xff000000);
+                                    int curTextViewId = prevTextViewId + 1;
+                                    textView.setId(curTextViewId);
+                                    final RelativeLayout.LayoutParams params =
+                                            new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                                                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+                                    params.addRule(RelativeLayout.BELOW, R.id.addReview);
+                                    textView.setLayoutParams(params);
+                                }
+                                final TextView textView = new TextView(getApplicationContext());
+                                textView.setText(users[i]+": "+reviews[i]);
+                                textView.setTextColor(rnd.nextInt() | 0xff000000);
+                                int curTextViewId = prevTextViewId + 1;
+                                textView.setId(curTextViewId);
+                                final RelativeLayout.LayoutParams params =
+                                        new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                                                RelativeLayout.LayoutParams.WRAP_CONTENT);
+                                params.addRule(RelativeLayout.BELOW, prevTextViewId);
+
+                                textView.setLayoutParams(params);
+                                prevTextViewId = curTextViewId;
+                                albumLayout.addView(textView, params);
                             }
                         }
                         else{
@@ -153,7 +185,7 @@ public class AlbumActivity extends AppCompatActivity {
                             TextView noReview = new TextView(getApplicationContext());
                             noReview.setText("No Reviews");
                             //albumLayout.addView(noReview);
-                            albumReviewListView.addView(noReview);
+                            //albumReviewListView.addView(noReview);
                             //try and turn off choices since no reviews for the album
                         }
                     } else {
